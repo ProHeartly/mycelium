@@ -1,9 +1,11 @@
 import os
 from pathlib import Path
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, HTTPException
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
+import frontmatter
+import markdown
 
 app = FastAPI()
 
@@ -15,6 +17,16 @@ src = Jinja2Templates(directory="src")
 
 # gallery dir (ones with photo)
 gal = Path("static/gallery")
+# blog dir (here will be md files for blog)
+blogs = Path("static/blogs")
+
+def parse_markdown(file_path: Path):
+    post = frontmatter.load(file_path)
+    html_content = markdown.markdown(
+        post.content,
+        extensions=["fenced_code", "tables", "nl2br", "sane_lists"]
+    )
+    return post.metadata, html_content
 
 # THis is index aka the main root
 @app.get("/")
@@ -51,4 +63,30 @@ def joke(request: Request):
 
 @app.get("/blog")
 def blog(request: Request):
-    return src.TemplateResponse("blog.html", {"request": request})
+    posts = []
+    for file in blogs.glob("*.md"):
+        meta, _  = parse_markdown(file)
+        posts.append({
+            "slug": file.stem,
+            "title": meta.get("title", file.stem.replace("-", " ").title()),
+            "date": meta.get("date", "")
+        })
+
+    posts.sort(key=lambda x: str(x["date"]), reverse=True)
+    return src.TemplateResponse("blog.html", {"request": request, "posts": posts})
+
+@app.get("/blog/{slug}")
+def blog_detail(request: Request, slug: str):
+    file_path = blogs / f"{slug}.md"
+    if not file_path.exists():
+        raise HTTPException(status_code=404, detail="Blog post not found")
+
+    meta, html_content = parse_markdown(file_path)
+    return src.TemplateResponse(
+        "blog_page.html",
+        {
+            "request": request,
+            "title": meta.get("title", slug.replace("-", " ").title()),
+            "content": html_content
+        }  
+    )

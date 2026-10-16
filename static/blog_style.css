@@ -126,6 +126,14 @@ p {
     text-underline-offset: 4px;
 }
 
+.card .blog-date {
+    display: inline-block;
+    margin-top: 12px;
+    font-size: 13px;
+    color: var(--text-color);
+    font-family: "Space Grotesk", sans-serif;
+}
+
 .b1 {
     grid-column: span 2;
 }
