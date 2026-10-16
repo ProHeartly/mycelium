@@ -21,36 +21,13 @@
     </header>
 
     <main class="gallery-wrapper">
-        <div class="gallery-card">
-            <img src="gallery/a.jpg" alt="">
-        </div>
-        <div class="gallery-card">
-            <img src="gallery/c.jpg" alt="">
-        </div>
-        <div class="gallery-card">
-            <img src="gallery/b.jpg" alt="">
-        </div>
-        <div class="gallery-card">
-            <img src="gallery/j.jpg" alt="">
-        </div>
-        <div class="gallery-card">
-            <img src="gallery/e.jpg" alt="">
-        </div>
-        <div class="gallery-card">
-            <img src="gallery/f.jpg" alt="">
-        </div>
-        <div class="gallery-card">
-            <img src="gallery/g.jpg" alt="">
-        </div>
-        <div class="gallery-card">
-            <img src="gallery/h.jpg" alt="">
-        </div>
-        <div class="gallery-card">
-            <img src="gallery/i.jpg" alt="">
-        </div>
-        <div class="gallery-card">
-            <img src="gallery/d.jpg" alt="">
-        </div>
+        {% if images %}
+            {% for img in images %}
+                <div class="gallery-card">
+                    <img src="/static/gallery/{{ img }}" alt="image" loading="lazy">
+                </div>
+            {% endfor %}
+        {% endif %}
     </main>
 
 </body>
