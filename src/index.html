@@ -1,12 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test</title>
-    <link rel="stylesheet" href="{{ url_for('static', path='/style.css') }}">
+    <title>Heartly</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="/static/theme.js"></script>
 </head>
-<body>
-    <h1>Hiiiii</h1>
+<div>
+    <div class="screen">
+        <div class="grid">
+            <a href="/joke" class="card joke">
+                <h1>Coding Joke</h1>
+                <p>Click for a coding joke (using jokeapi)</p>
+            </a>
+            <a href="/blog" class="card blog">
+                <h1>Blog</h1>
+                <p>Random posts by me</p>
+            </a>
+            <div class="card theme" id="theme-toggle">
+                <i class="ph-fill ph-moon" id="theme-icon"></i>
+            </div>
+            <a href="https://github.com/ProHeartly/" target="_blank" rel="noopener" class="card git">
+                <i class="ph-fill ph-github-logo"></i>
+            </a>
+            <a href="/projects" class="card projects">
+                <h1>Very Cool Projects</h1>
+                <p>Cool like me</p>
+            </a>
+            <a href="/gallery" class="card gallery">
+                <h1>Image Gallery</h1>
+                <p>What maybe inside??</p>
+            </a>
+            <a href="/about" class="card about">
+                <h1>About Me</h1>
+                <p>Who is this random guy?</p>
+            </a>
+            <a href="/contact" class="card contact">
+                <h1>Contact Me</h1>
+                <p>My contants if u wana have some chitchats</p>
+            </a>
+            <a href="https://hcb.hackclub.com/donations/start/stem-club-of-aroma" target="_blank" rel="noopener" class="card donate">
+                <i class="ph-fill ph-hand-heart"></i>
+            </a>
+        </div>
+    </div>
 </body>
 </html>
